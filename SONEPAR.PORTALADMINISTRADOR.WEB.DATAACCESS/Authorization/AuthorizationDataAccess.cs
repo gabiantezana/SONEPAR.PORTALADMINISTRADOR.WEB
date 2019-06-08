@@ -13,8 +13,6 @@ namespace SICER.DATAACCESS.Authorization
         {
             return null;
         }
-
-        public int MyProperty { get; set; }
         private void GetAprovalTypeLevelsIdFromUser(string sapUsername)
         {
             var list = new DB_SAPAUTHORIZATIONEntities().SapUsersPerAprovalTypeLevel
