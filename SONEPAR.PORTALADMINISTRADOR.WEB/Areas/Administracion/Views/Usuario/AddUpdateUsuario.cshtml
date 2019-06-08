@@ -1,0 +1,109 @@
+﻿@using SONEPAR.PORTALADMINISTRADOR.WEB.Areas.Administracion.Controllers
+@using SONEPAR.PORTALADMINISTRADOR.WEB.LOGIC.Administracion
+@using SONEPAR.PORTALADMINISTRADOR.WEB.MODEL
+@model SONEPAR.PORTALADMINISTRADOR.WEB.VIEWMODEL.Administracion.Usuario.UsuarioViewModel
+@{
+    ViewBag.Title = Model.UsuarioId.HasValue ? "Editar Usuario" : "Crear Usuario";
+    ViewBag.Icon = Model.UsuarioId.HasValue ? "edit" : "plus";
+    var isEdit = Model.UsuarioId.HasValue ? "true" : "false";
+}
+@using (Html.BeginForm("AddUpdateUsuario", "Usuario", FormMethod.Post))
+{
+    @section Breadcrumbs{
+        <li><a href="@Url.Action("ListUsuarios", "Usuario")">Listado de usuarios</a></li>
+    }
+
+    <div class="panel-footer text-right">
+        <button class="btn btn-primary" id="btnGuardar"><i class="fa fa-save" aria-hidden="true"></i>&nbsp; Guardar</button>
+    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            <h5 class="panel-title">Datos del usuario</h5>
+        </div>
+        @if (Model.UsuarioId.HasValue)
+        {
+            @Html.HiddenFor(x => Model.UsuarioId)
+        }
+    <div class="panel-body">
+        <div class="form-group">
+            @Html.LabelFor(x => Model.IsActive, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                @Html.CheckBoxFor(x => Model.IsActive, new { @data_plugin = "switchery" })
+            </div>
+        </div>
+
+        @Html.EditorFor(x => Model.Username, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(x => Model.Office365Mail, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(x => Model.SapUsername, new { htmlAttributes = new { @class = "form-control" } })
+        @*@Html.EditorFor(x => Model.Password, new { htmlAttributes = new { @class = "form-control" } })//TODO RESET*@
+
+        @*<div class="form-group col-sm-6">
+            @Html.LabelFor(x => Model.FechaNacimiento, new { @class = "control-label" })
+            <div class="input-group date">
+                @Html.TextBoxFor(x => Model.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control fecha", @type = "text" })
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+            @Html.ValidationMessageFor(x => Model.FechaNacimiento)
+        </div>*@
+        <div class="form-group col-md-6 col-sm-12">
+            @Html.LabelFor(x => Model.RolId, new { @class = "form-label " })
+            @Html.DropDownListFor(x => Model.RolId, new SelectList(Model.RolJList, "id", "text", 0), new { @class = "form-control form-group-margin select-rol", @data_plugin = "select2", @data_isedit = isEdit })
+            @Html.ValidationMessageFor(x => Model.RolId)
+        </div>
+
+    </div>
+    </div>
+
+    <div class="panel-footer text-right">
+        <a class="btn btn-default animsition-link pull-left" href="@Url.Action("ListUsuarios", "Usuario", new { area = SONEPAR.PORTALADMINISTRADOR.WEB.HELPER.ConstantHelper.Area.ADMINISTRACION })"><i class="fa fa-arrow-left"></i> Atrás</a>
+        <button class="btn btn-primary" id="btnGuardar"><i class="fa fa-save" aria-hidden="true"></i>&nbsp; Guardar</button>
+    </div>
+}
+@section Scripts{
+    <script>
+        $(".select-rol").change(function() {
+         /*
+                $(".panel-subroles").slideDown();
+                $(".panel-subroles").slideUp();
+        */
+        });
+
+
+        $(function () {
+            var _guid = '@Guid.NewGuid()';
+            $('#SapBusinessPartnerCardCode').select2({
+                ajax: {
+                    url: '@Url.Action("GetJList", "SapBusinessPartner", new { Area = ConstantHelper.Area.ADMINISTRACION})',
+                    dataType: 'json',
+                    type: 'POST',
+                    delay: 250,
+                    data: function (params) {
+                        var values = params.term;
+                        return {
+                            filter: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true,
+                },
+                tags: false,
+                createTag: function (newTag) {
+                    return {
+                        id: _guid + newTag.term,
+                        text: newTag.term + "(nuevo)",
+                        isNew: true,
+                    };
+                },
+                minimumInputLength: 3,
+                allowClear: true,
+                language: 'es',
+                placeholder: 'Buscar'
+            });
+        });
+
+    </script>
+}

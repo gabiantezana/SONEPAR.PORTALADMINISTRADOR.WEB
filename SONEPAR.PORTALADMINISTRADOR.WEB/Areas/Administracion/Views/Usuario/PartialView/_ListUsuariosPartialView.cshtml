@@ -1,0 +1,50 @@
+﻿@model IPagedList<SONEPAR.PORTALADMINISTRADOR.WEB.MODEL.Usuario>
+<table class="table table-hover">
+    <thead style="font-weight:bold">
+        <tr>
+            <td>Username</td>
+            <td>Correo</td>
+            <td>Rol</td>
+            <td class="text-center">Opciones</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+            {
+            <tr><td style="font-style: italic" colspan="7">@ConstantHelper.MENSAJE_TABLA_VACIA</td></tr>
+        }
+        @foreach (var item in Model)
+            {
+            <tr ondblclick="window.location = '@Url.Action("AddUpdateUsuario", "Usuario", new {Area = ConstantHelper.Area.ADMINISTRACION, usuarioId = item.UsuarioId})'">
+                <td>@item.Username</td>
+                <td>@item.Office365Mail</td>
+                <td>@item.Rol.Descripcion</td>
+                <td class="text-nowrap text-center">
+                    <a href="@Url.Action("DisableUsuario", "Usuario", new {Area = ConstantHelper.Area.ADMINISTRACION, usuarioId = item.UsuarioId})" class="btn btn-sm btn-icon btn-flat btn-default"
+                       data-toggle="tooltip" data-original-title="@(item.IsActive == true ? "Desactivar" : "Activar")">
+                        @if (item.IsActive == true)
+                        {
+                            <i class="fa fa-toggle-on" aria-hidden="true"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-toggle-off" aria-hidden="true"></i>
+                        }
+                    </a>
+                    <a href="@Url.Action("AddUpdateUsuario", "Usuario", new {Area = ConstantHelper.Area.ADMINISTRACION, usuarioId = item.UsuarioId})" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Editar">
+                        <i class="icon wb-wrench" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="myPager">
+    @Html.PagedListPager(Model, page => Url.Action("_ListUsuariosPaged",
+        new
+        {
+            page = page,
+            //MODEL PROPERTIES HERE:
+            filter = ViewBag.Filter,
+        }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing("partialList"))
+</div>

@@ -1,0 +1,1018 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_SAPAUTHORIZATIONModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AprovalSubType">
+          <Key>
+            <PropertyRef Name="AprovalSubTypeId" />
+          </Key>
+          <Property Name="AprovalSubTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AprovalTypeId" Type="int" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="InitialRange" Type="float" />
+          <Property Name="FinalRange" Type="float" />
+          <Property Name="NumberOrder" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="AprovalType">
+          <Key>
+            <PropertyRef Name="AprovalTypeId" />
+          </Key>
+          <Property Name="AprovalTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Authorizationn">
+          <Key>
+            <PropertyRef Name="AuthorizationId" />
+          </Key>
+          <Property Name="AuthorizationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SapObjectType" Type="int" Nullable="false" />
+          <Property Name="SapKey" Type="int" Nullable="false" />
+          <Property Name="State" Type="int" />
+          <Property Name="AprovalTypeId" Type="int" />
+          <Property Name="MaxAprovalSubTypeId" Type="int" />
+          <Property Name="CurrentAprovalSubTypeId" Type="int" />
+          <Property Name="NextAprovalSubTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="AuthorizationnHistory">
+          <Key>
+            <PropertyRef Name="AuthorizationHistoryId" />
+          </Key>
+          <Property Name="AuthorizationHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SapObjectType" Type="int" Nullable="false" />
+          <Property Name="SapKey" Type="int" Nullable="false" />
+          <Property Name="State" Type="int" />
+          <Property Name="AprovalTypeId" Type="int" Nullable="false" />
+          <Property Name="MaxAprovalSubTypeId" Type="int" />
+          <Property Name="CurrentAprovalSubTypeId" Type="int" />
+          <Property Name="NextAprovalSubTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="CONFIG">
+          <Key>
+            <PropertyRef Name="CONFIGId" />
+          </Key>
+          <Property Name="CONFIGId" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Valor" Type="nvarchar(max)" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="GrupoVista">
+          <Key>
+            <PropertyRef Name="GrupoVistaId" />
+          </Key>
+          <Property Name="GrupoVistaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar(max)" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="RolId" />
+          </Key>
+          <Property Name="RolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar(max)" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Nivel" Type="int" />
+        </EntityType>
+        <EntityType Name="SapUsersPerAprovalTypeLevel">
+          <Key>
+            <PropertyRef Name="SapUsersPerAprovalTypeLevelId" />
+          </Key>
+          <Property Name="SapUsersPerAprovalTypeLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sapUsername" Type="nvarchar(max)" />
+          <Property Name="AprovalSubTypeId" Type="int" />
+          <Property Name="NumberOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Office365Mail" Type="nvarchar(max)" />
+          <Property Name="SapUsername" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Office365Mail" Type="nvarchar(max)" />
+          <Property Name="SapUsername" Type="nvarchar(max)" />
+          <Property Name="RolId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="UsuarioRoles">
+          <Key>
+            <PropertyRef Name="UsuarioRolId" />
+          </Key>
+          <Property Name="UsuarioRolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+          <Property Name="RolId" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="CreacionUsuarioId" Type="int" />
+          <Property Name="FechaCreacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Vista">
+          <Key>
+            <PropertyRef Name="VistaId" />
+          </Key>
+          <Property Name="VistaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar(max)" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="GrupoVistaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VistaRol">
+          <Key>
+            <PropertyRef Name="VistaRolId" />
+          </Key>
+          <Property Name="VistaRolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="VistaId" Type="int" Nullable="false" />
+          <Property Name="RolId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__AprovalSu__Aprov__1273C1CD">
+          <End Role="AprovalType" Type="Self.AprovalType" Multiplicity="0..1" />
+          <End Role="AprovalSubType" Type="Self.AprovalSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalType">
+              <PropertyRef Name="AprovalTypeId" />
+            </Principal>
+            <Dependent Role="AprovalSubType">
+              <PropertyRef Name="AprovalTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__Aprov__15502E78">
+          <End Role="AprovalType" Type="Self.AprovalType" Multiplicity="0..1" />
+          <End Role="Authorizationn" Type="Self.Authorizationn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalType">
+              <PropertyRef Name="AprovalTypeId" />
+            </Principal>
+            <Dependent Role="Authorizationn">
+              <PropertyRef Name="AprovalTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__Aprov__1B0907CE">
+          <End Role="AprovalType" Type="Self.AprovalType" Multiplicity="1" />
+          <End Role="AuthorizationnHistory" Type="Self.AuthorizationnHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalType">
+              <PropertyRef Name="AprovalTypeId" />
+            </Principal>
+            <Dependent Role="AuthorizationnHistory">
+              <PropertyRef Name="AprovalTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__Curre__173876EA">
+          <End Role="AprovalSubType" Type="Self.AprovalSubType" Multiplicity="0..1" />
+          <End Role="Authorizationn" Type="Self.Authorizationn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="Authorizationn">
+              <PropertyRef Name="CurrentAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__Curre__1CF15040">
+          <End Role="AprovalSubType" Type="Self.AprovalSubType" Multiplicity="0..1" />
+          <End Role="AuthorizationnHistory" Type="Self.AuthorizationnHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="AuthorizationnHistory">
+              <PropertyRef Name="CurrentAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__MaxAp__164452B1">
+          <End Role="AprovalSubType" Type="Self.AprovalSubType" Multiplicity="0..1" />
+          <End Role="Authorizationn" Type="Self.Authorizationn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="Authorizationn">
+              <PropertyRef Name="MaxAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__MaxAp__1BFD2C07">
+          <End Role="AprovalSubType" Type="Self.AprovalSubType" Multiplicity="0..1" />
+          <End Role="AuthorizationnHistory" Type="Self.AuthorizationnHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="AuthorizationnHistory">
+              <PropertyRef Name="MaxAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__NextA__182C9B23">
+          <End Role="AprovalSubType" Type="Self.AprovalSubType" Multiplicity="0..1" />
+          <End Role="Authorizationn" Type="Self.Authorizationn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="Authorizationn">
+              <PropertyRef Name="NextAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__NextA__1DE57479">
+          <End Role="AprovalSubType" Type="Self.AprovalSubType" Multiplicity="0..1" />
+          <End Role="AuthorizationnHistory" Type="Self.AuthorizationnHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="AuthorizationnHistory">
+              <PropertyRef Name="NextAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SapUsersP__Aprov__20C1E124">
+          <End Role="AprovalSubType" Type="Self.AprovalSubType" Multiplicity="0..1" />
+          <End Role="SapUsersPerAprovalTypeLevel" Type="Self.SapUsersPerAprovalTypeLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="SapUsersPerAprovalTypeLevel">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__RolId__33D4B598">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__Creac__3D5E1FD2">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="CreacionUsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__RolId__3C69FB99">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolId" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__Usuar__3B75D760">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioRoles" Type="Self.UsuarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VistaRol__RolId__412EB0B6">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="VistaRol" Type="Self.VistaRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolId" />
+            </Principal>
+            <Dependent Role="VistaRol">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VistaRol__VistaI__403A8C7D">
+          <End Role="Vista" Type="Self.Vista" Multiplicity="1" />
+          <End Role="VistaRol" Type="Self.VistaRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vista">
+              <PropertyRef Name="VistaId" />
+            </Principal>
+            <Dependent Role="VistaRol">
+              <PropertyRef Name="VistaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_SAPAUTHORIZATIONModelStoreContainer">
+          <EntitySet Name="AprovalSubType" EntityType="Self.AprovalSubType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AprovalType" EntityType="Self.AprovalType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authorizationn" EntityType="Self.Authorizationn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuthorizationnHistory" EntityType="Self.AuthorizationnHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONFIG" EntityType="Self.CONFIG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GrupoVista" EntityType="Self.GrupoVista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SapUsersPerAprovalTypeLevel" EntityType="Self.SapUsersPerAprovalTypeLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioRoles" EntityType="Self.UsuarioRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vista" EntityType="Self.Vista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VistaRol" EntityType="Self.VistaRol" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AprovalSu__Aprov__1273C1CD" Association="Self.FK__AprovalSu__Aprov__1273C1CD">
+            <End Role="AprovalType" EntitySet="AprovalType" />
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__Aprov__15502E78" Association="Self.FK__Authoriza__Aprov__15502E78">
+            <End Role="AprovalType" EntitySet="AprovalType" />
+            <End Role="Authorizationn" EntitySet="Authorizationn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__Aprov__1B0907CE" Association="Self.FK__Authoriza__Aprov__1B0907CE">
+            <End Role="AprovalType" EntitySet="AprovalType" />
+            <End Role="AuthorizationnHistory" EntitySet="AuthorizationnHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__Curre__173876EA" Association="Self.FK__Authoriza__Curre__173876EA">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="Authorizationn" EntitySet="Authorizationn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__Curre__1CF15040" Association="Self.FK__Authoriza__Curre__1CF15040">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="AuthorizationnHistory" EntitySet="AuthorizationnHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__MaxAp__164452B1" Association="Self.FK__Authoriza__MaxAp__164452B1">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="Authorizationn" EntitySet="Authorizationn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__MaxAp__1BFD2C07" Association="Self.FK__Authoriza__MaxAp__1BFD2C07">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="AuthorizationnHistory" EntitySet="AuthorizationnHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__NextA__182C9B23" Association="Self.FK__Authoriza__NextA__182C9B23">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="Authorizationn" EntitySet="Authorizationn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__NextA__1DE57479" Association="Self.FK__Authoriza__NextA__1DE57479">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="AuthorizationnHistory" EntitySet="AuthorizationnHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SapUsersP__Aprov__20C1E124" Association="Self.FK__SapUsersP__Aprov__20C1E124">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="SapUsersPerAprovalTypeLevel" EntitySet="SapUsersPerAprovalTypeLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__RolId__33D4B598" Association="Self.FK__Usuario__RolId__33D4B598">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__Creac__3D5E1FD2" Association="Self.FK__UsuarioRo__Creac__3D5E1FD2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__RolId__3C69FB99" Association="Self.FK__UsuarioRo__RolId__3C69FB99">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__Usuar__3B75D760" Association="Self.FK__UsuarioRo__Usuar__3B75D760">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VistaRol__RolId__412EB0B6" Association="Self.FK__VistaRol__RolId__412EB0B6">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="VistaRol" EntitySet="VistaRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VistaRol__VistaI__403A8C7D" Association="Self.FK__VistaRol__VistaI__403A8C7D">
+            <End Role="Vista" EntitySet="Vista" />
+            <End Role="VistaRol" EntitySet="VistaRol" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_SAPAUTHORIZATIONModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DB_SAPAUTHORIZATIONEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AprovalSubType" EntityType="DB_SAPAUTHORIZATIONModel.AprovalSubType" />
+          <EntitySet Name="AprovalType" EntityType="DB_SAPAUTHORIZATIONModel.AprovalType" />
+          <EntitySet Name="Authorizationn" EntityType="DB_SAPAUTHORIZATIONModel.Authorizationn" />
+          <EntitySet Name="AuthorizationnHistory" EntityType="DB_SAPAUTHORIZATIONModel.AuthorizationnHistory" />
+          <EntitySet Name="CONFIG" EntityType="DB_SAPAUTHORIZATIONModel.CONFIG" />
+          <EntitySet Name="GrupoVista" EntityType="DB_SAPAUTHORIZATIONModel.GrupoVista" />
+          <EntitySet Name="Rol" EntityType="DB_SAPAUTHORIZATIONModel.Rol" />
+          <EntitySet Name="SapUsersPerAprovalTypeLevel" EntityType="DB_SAPAUTHORIZATIONModel.SapUsersPerAprovalTypeLevel" />
+          <EntitySet Name="Users" EntityType="DB_SAPAUTHORIZATIONModel.Users" />
+          <EntitySet Name="Usuario" EntityType="DB_SAPAUTHORIZATIONModel.Usuario" />
+          <EntitySet Name="UsuarioRoles" EntityType="DB_SAPAUTHORIZATIONModel.UsuarioRoles" />
+          <EntitySet Name="Vista" EntityType="DB_SAPAUTHORIZATIONModel.Vista" />
+          <EntitySet Name="VistaRol" EntityType="DB_SAPAUTHORIZATIONModel.VistaRol" />
+          <AssociationSet Name="FK__AprovalSu__Aprov__1273C1CD" Association="DB_SAPAUTHORIZATIONModel.FK__AprovalSu__Aprov__1273C1CD">
+            <End Role="AprovalType" EntitySet="AprovalType" />
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__Curre__173876EA" Association="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Curre__173876EA">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="Authorizationn" EntitySet="Authorizationn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__Curre__1CF15040" Association="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Curre__1CF15040">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="AuthorizationnHistory" EntitySet="AuthorizationnHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__MaxAp__164452B1" Association="DB_SAPAUTHORIZATIONModel.FK__Authoriza__MaxAp__164452B1">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="Authorizationn" EntitySet="Authorizationn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__MaxAp__1BFD2C07" Association="DB_SAPAUTHORIZATIONModel.FK__Authoriza__MaxAp__1BFD2C07">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="AuthorizationnHistory" EntitySet="AuthorizationnHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__NextA__182C9B23" Association="DB_SAPAUTHORIZATIONModel.FK__Authoriza__NextA__182C9B23">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="Authorizationn" EntitySet="Authorizationn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__NextA__1DE57479" Association="DB_SAPAUTHORIZATIONModel.FK__Authoriza__NextA__1DE57479">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="AuthorizationnHistory" EntitySet="AuthorizationnHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SapUsersP__Aprov__20C1E124" Association="DB_SAPAUTHORIZATIONModel.FK__SapUsersP__Aprov__20C1E124">
+            <End Role="AprovalSubType" EntitySet="AprovalSubType" />
+            <End Role="SapUsersPerAprovalTypeLevel" EntitySet="SapUsersPerAprovalTypeLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__Aprov__15502E78" Association="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Aprov__15502E78">
+            <End Role="AprovalType" EntitySet="AprovalType" />
+            <End Role="Authorizationn" EntitySet="Authorizationn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__Aprov__1B0907CE" Association="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Aprov__1B0907CE">
+            <End Role="AprovalType" EntitySet="AprovalType" />
+            <End Role="AuthorizationnHistory" EntitySet="AuthorizationnHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__RolId__33D4B598" Association="DB_SAPAUTHORIZATIONModel.FK__Usuario__RolId__33D4B598">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__RolId__3C69FB99" Association="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__RolId__3C69FB99">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VistaRol__RolId__412EB0B6" Association="DB_SAPAUTHORIZATIONModel.FK__VistaRol__RolId__412EB0B6">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="VistaRol" EntitySet="VistaRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__Creac__3D5E1FD2" Association="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__Creac__3D5E1FD2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuarioRo__Usuar__3B75D760" Association="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__Usuar__3B75D760">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioRoles" EntitySet="UsuarioRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VistaRol__VistaI__403A8C7D" Association="DB_SAPAUTHORIZATIONModel.FK__VistaRol__VistaI__403A8C7D">
+            <End Role="Vista" EntitySet="Vista" />
+            <End Role="VistaRol" EntitySet="VistaRol" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AprovalSubType">
+          <Key>
+            <PropertyRef Name="AprovalSubTypeId" />
+          </Key>
+          <Property Name="AprovalSubTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AprovalTypeId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InitialRange" Type="Double" />
+          <Property Name="FinalRange" Type="Double" />
+          <Property Name="NumberOrder" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="AprovalType" Relationship="DB_SAPAUTHORIZATIONModel.FK__AprovalSu__Aprov__1273C1CD" FromRole="AprovalSubType" ToRole="AprovalType" />
+          <NavigationProperty Name="Authorizationn" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Curre__173876EA" FromRole="AprovalSubType" ToRole="Authorizationn" />
+          <NavigationProperty Name="AuthorizationnHistory" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Curre__1CF15040" FromRole="AprovalSubType" ToRole="AuthorizationnHistory" />
+          <NavigationProperty Name="Authorizationn1" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__MaxAp__164452B1" FromRole="AprovalSubType" ToRole="Authorizationn" />
+          <NavigationProperty Name="AuthorizationnHistory1" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__MaxAp__1BFD2C07" FromRole="AprovalSubType" ToRole="AuthorizationnHistory" />
+          <NavigationProperty Name="Authorizationn2" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__NextA__182C9B23" FromRole="AprovalSubType" ToRole="Authorizationn" />
+          <NavigationProperty Name="AuthorizationnHistory2" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__NextA__1DE57479" FromRole="AprovalSubType" ToRole="AuthorizationnHistory" />
+          <NavigationProperty Name="SapUsersPerAprovalTypeLevel" Relationship="DB_SAPAUTHORIZATIONModel.FK__SapUsersP__Aprov__20C1E124" FromRole="AprovalSubType" ToRole="SapUsersPerAprovalTypeLevel" />
+        </EntityType>
+        <EntityType Name="AprovalType">
+          <Key>
+            <PropertyRef Name="AprovalTypeId" />
+          </Key>
+          <Property Name="AprovalTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AprovalSubType" Relationship="DB_SAPAUTHORIZATIONModel.FK__AprovalSu__Aprov__1273C1CD" FromRole="AprovalType" ToRole="AprovalSubType" />
+          <NavigationProperty Name="Authorizationn" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Aprov__15502E78" FromRole="AprovalType" ToRole="Authorizationn" />
+          <NavigationProperty Name="AuthorizationnHistory" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Aprov__1B0907CE" FromRole="AprovalType" ToRole="AuthorizationnHistory" />
+        </EntityType>
+        <EntityType Name="Authorizationn">
+          <Key>
+            <PropertyRef Name="AuthorizationId" />
+          </Key>
+          <Property Name="AuthorizationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SapObjectType" Type="Int32" Nullable="false" />
+          <Property Name="SapKey" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="AprovalTypeId" Type="Int32" />
+          <Property Name="MaxAprovalSubTypeId" Type="Int32" />
+          <Property Name="CurrentAprovalSubTypeId" Type="Int32" />
+          <Property Name="NextAprovalSubTypeId" Type="Int32" />
+          <NavigationProperty Name="AprovalSubType" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Curre__173876EA" FromRole="Authorizationn" ToRole="AprovalSubType" />
+          <NavigationProperty Name="AprovalSubType1" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__MaxAp__164452B1" FromRole="Authorizationn" ToRole="AprovalSubType" />
+          <NavigationProperty Name="AprovalSubType2" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__NextA__182C9B23" FromRole="Authorizationn" ToRole="AprovalSubType" />
+          <NavigationProperty Name="AprovalType" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Aprov__15502E78" FromRole="Authorizationn" ToRole="AprovalType" />
+        </EntityType>
+        <EntityType Name="AuthorizationnHistory">
+          <Key>
+            <PropertyRef Name="AuthorizationHistoryId" />
+          </Key>
+          <Property Name="AuthorizationHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SapObjectType" Type="Int32" Nullable="false" />
+          <Property Name="SapKey" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="AprovalTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MaxAprovalSubTypeId" Type="Int32" />
+          <Property Name="CurrentAprovalSubTypeId" Type="Int32" />
+          <Property Name="NextAprovalSubTypeId" Type="Int32" />
+          <NavigationProperty Name="AprovalSubType" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Curre__1CF15040" FromRole="AuthorizationnHistory" ToRole="AprovalSubType" />
+          <NavigationProperty Name="AprovalSubType1" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__MaxAp__1BFD2C07" FromRole="AuthorizationnHistory" ToRole="AprovalSubType" />
+          <NavigationProperty Name="AprovalSubType2" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__NextA__1DE57479" FromRole="AuthorizationnHistory" ToRole="AprovalSubType" />
+          <NavigationProperty Name="AprovalType" Relationship="DB_SAPAUTHORIZATIONModel.FK__Authoriza__Aprov__1B0907CE" FromRole="AuthorizationnHistory" ToRole="AprovalType" />
+        </EntityType>
+        <EntityType Name="CONFIG">
+          <Key>
+            <PropertyRef Name="CONFIGId" />
+          </Key>
+          <Property Name="CONFIGId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Valor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GrupoVista">
+          <Key>
+            <PropertyRef Name="GrupoVistaId" />
+          </Key>
+          <Property Name="GrupoVistaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="RolId" />
+          </Key>
+          <Property Name="RolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nivel" Type="Int32" />
+          <NavigationProperty Name="Usuario" Relationship="DB_SAPAUTHORIZATIONModel.FK__Usuario__RolId__33D4B598" FromRole="Rol" ToRole="Usuario" />
+          <NavigationProperty Name="UsuarioRoles" Relationship="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__RolId__3C69FB99" FromRole="Rol" ToRole="UsuarioRoles" />
+          <NavigationProperty Name="VistaRol" Relationship="DB_SAPAUTHORIZATIONModel.FK__VistaRol__RolId__412EB0B6" FromRole="Rol" ToRole="VistaRol" />
+        </EntityType>
+        <EntityType Name="SapUsersPerAprovalTypeLevel">
+          <Key>
+            <PropertyRef Name="SapUsersPerAprovalTypeLevelId" />
+          </Key>
+          <Property Name="SapUsersPerAprovalTypeLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sapUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AprovalSubTypeId" Type="Int32" />
+          <Property Name="NumberOrder" Type="Int32" />
+          <NavigationProperty Name="AprovalSubType" Relationship="DB_SAPAUTHORIZATIONModel.FK__SapUsersP__Aprov__20C1E124" FromRole="SapUsersPerAprovalTypeLevel" ToRole="AprovalSubType" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Office365Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SapUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Office365Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SapUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RolId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Rol" Relationship="DB_SAPAUTHORIZATIONModel.FK__Usuario__RolId__33D4B598" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="UsuarioRoles" Relationship="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__Creac__3D5E1FD2" FromRole="Usuario" ToRole="UsuarioRoles" />
+          <NavigationProperty Name="UsuarioRoles1" Relationship="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__Usuar__3B75D760" FromRole="Usuario" ToRole="UsuarioRoles" />
+        </EntityType>
+        <EntityType Name="UsuarioRoles">
+          <Key>
+            <PropertyRef Name="UsuarioRolId" />
+          </Key>
+          <Property Name="UsuarioRolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <Property Name="RolId" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="CreacionUsuarioId" Type="Int32" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Rol" Relationship="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__RolId__3C69FB99" FromRole="UsuarioRoles" ToRole="Rol" />
+          <NavigationProperty Name="Usuario" Relationship="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__Creac__3D5E1FD2" FromRole="UsuarioRoles" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="DB_SAPAUTHORIZATIONModel.FK__UsuarioRo__Usuar__3B75D760" FromRole="UsuarioRoles" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Vista">
+          <Key>
+            <PropertyRef Name="VistaId" />
+          </Key>
+          <Property Name="VistaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GrupoVistaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VistaRol" Relationship="DB_SAPAUTHORIZATIONModel.FK__VistaRol__VistaI__403A8C7D" FromRole="Vista" ToRole="VistaRol" />
+        </EntityType>
+        <EntityType Name="VistaRol">
+          <Key>
+            <PropertyRef Name="VistaRolId" />
+          </Key>
+          <Property Name="VistaRolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="VistaId" Type="Int32" Nullable="false" />
+          <Property Name="RolId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="DB_SAPAUTHORIZATIONModel.FK__VistaRol__RolId__412EB0B6" FromRole="VistaRol" ToRole="Rol" />
+          <NavigationProperty Name="Vista" Relationship="DB_SAPAUTHORIZATIONModel.FK__VistaRol__VistaI__403A8C7D" FromRole="VistaRol" ToRole="Vista" />
+        </EntityType>
+        <Association Name="FK__AprovalSu__Aprov__1273C1CD">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalType" Role="AprovalType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalSubType" Role="AprovalSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalType">
+              <PropertyRef Name="AprovalTypeId" />
+            </Principal>
+            <Dependent Role="AprovalSubType">
+              <PropertyRef Name="AprovalTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__Curre__173876EA">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalSubType" Role="AprovalSubType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.Authorizationn" Role="Authorizationn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="Authorizationn">
+              <PropertyRef Name="CurrentAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__Curre__1CF15040">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalSubType" Role="AprovalSubType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.AuthorizationnHistory" Role="AuthorizationnHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="AuthorizationnHistory">
+              <PropertyRef Name="CurrentAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__MaxAp__164452B1">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalSubType" Role="AprovalSubType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.Authorizationn" Role="Authorizationn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="Authorizationn">
+              <PropertyRef Name="MaxAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__MaxAp__1BFD2C07">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalSubType" Role="AprovalSubType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.AuthorizationnHistory" Role="AuthorizationnHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="AuthorizationnHistory">
+              <PropertyRef Name="MaxAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__NextA__182C9B23">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalSubType" Role="AprovalSubType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.Authorizationn" Role="Authorizationn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="Authorizationn">
+              <PropertyRef Name="NextAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__NextA__1DE57479">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalSubType" Role="AprovalSubType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.AuthorizationnHistory" Role="AuthorizationnHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="AuthorizationnHistory">
+              <PropertyRef Name="NextAprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SapUsersP__Aprov__20C1E124">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalSubType" Role="AprovalSubType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.SapUsersPerAprovalTypeLevel" Role="SapUsersPerAprovalTypeLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalSubType">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Principal>
+            <Dependent Role="SapUsersPerAprovalTypeLevel">
+              <PropertyRef Name="AprovalSubTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__Aprov__15502E78">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalType" Role="AprovalType" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.Authorizationn" Role="Authorizationn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalType">
+              <PropertyRef Name="AprovalTypeId" />
+            </Principal>
+            <Dependent Role="Authorizationn">
+              <PropertyRef Name="AprovalTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__Aprov__1B0907CE">
+          <End Type="DB_SAPAUTHORIZATIONModel.AprovalType" Role="AprovalType" Multiplicity="1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.AuthorizationnHistory" Role="AuthorizationnHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AprovalType">
+              <PropertyRef Name="AprovalTypeId" />
+            </Principal>
+            <Dependent Role="AuthorizationnHistory">
+              <PropertyRef Name="AprovalTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__RolId__33D4B598">
+          <End Type="DB_SAPAUTHORIZATIONModel.Rol" Role="Rol" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__RolId__3C69FB99">
+          <End Type="DB_SAPAUTHORIZATIONModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.UsuarioRoles" Role="UsuarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolId" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VistaRol__RolId__412EB0B6">
+          <End Type="DB_SAPAUTHORIZATIONModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.VistaRol" Role="VistaRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolId" />
+            </Principal>
+            <Dependent Role="VistaRol">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__Creac__3D5E1FD2">
+          <End Type="DB_SAPAUTHORIZATIONModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.UsuarioRoles" Role="UsuarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="CreacionUsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuarioRo__Usuar__3B75D760">
+          <End Type="DB_SAPAUTHORIZATIONModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.UsuarioRoles" Role="UsuarioRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="UsuarioRoles">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VistaRol__VistaI__403A8C7D">
+          <End Type="DB_SAPAUTHORIZATIONModel.Vista" Role="Vista" Multiplicity="1" />
+          <End Type="DB_SAPAUTHORIZATIONModel.VistaRol" Role="VistaRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vista">
+              <PropertyRef Name="VistaId" />
+            </Principal>
+            <Dependent Role="VistaRol">
+              <PropertyRef Name="VistaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_SAPAUTHORIZATIONModelStoreContainer" CdmEntityContainer="DB_SAPAUTHORIZATIONEntities">
+          <EntitySetMapping Name="AprovalSubType">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.AprovalSubType">
+              <MappingFragment StoreEntitySet="AprovalSubType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="NumberOrder" ColumnName="NumberOrder" />
+                <ScalarProperty Name="FinalRange" ColumnName="FinalRange" />
+                <ScalarProperty Name="InitialRange" ColumnName="InitialRange" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AprovalTypeId" ColumnName="AprovalTypeId" />
+                <ScalarProperty Name="AprovalSubTypeId" ColumnName="AprovalSubTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AprovalType">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.AprovalType">
+              <MappingFragment StoreEntitySet="AprovalType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AprovalTypeId" ColumnName="AprovalTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authorizationn">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.Authorizationn">
+              <MappingFragment StoreEntitySet="Authorizationn">
+                <ScalarProperty Name="NextAprovalSubTypeId" ColumnName="NextAprovalSubTypeId" />
+                <ScalarProperty Name="CurrentAprovalSubTypeId" ColumnName="CurrentAprovalSubTypeId" />
+                <ScalarProperty Name="MaxAprovalSubTypeId" ColumnName="MaxAprovalSubTypeId" />
+                <ScalarProperty Name="AprovalTypeId" ColumnName="AprovalTypeId" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="SapKey" ColumnName="SapKey" />
+                <ScalarProperty Name="SapObjectType" ColumnName="SapObjectType" />
+                <ScalarProperty Name="AuthorizationId" ColumnName="AuthorizationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthorizationnHistory">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.AuthorizationnHistory">
+              <MappingFragment StoreEntitySet="AuthorizationnHistory">
+                <ScalarProperty Name="NextAprovalSubTypeId" ColumnName="NextAprovalSubTypeId" />
+                <ScalarProperty Name="CurrentAprovalSubTypeId" ColumnName="CurrentAprovalSubTypeId" />
+                <ScalarProperty Name="MaxAprovalSubTypeId" ColumnName="MaxAprovalSubTypeId" />
+                <ScalarProperty Name="AprovalTypeId" ColumnName="AprovalTypeId" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="SapKey" ColumnName="SapKey" />
+                <ScalarProperty Name="SapObjectType" ColumnName="SapObjectType" />
+                <ScalarProperty Name="AuthorizationHistoryId" ColumnName="AuthorizationHistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONFIG">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.CONFIG">
+              <MappingFragment StoreEntitySet="CONFIG">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="CONFIGId" ColumnName="CONFIGId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrupoVista">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.GrupoVista">
+              <MappingFragment StoreEntitySet="GrupoVista">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="GrupoVistaId" ColumnName="GrupoVistaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SapUsersPerAprovalTypeLevel">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.SapUsersPerAprovalTypeLevel">
+              <MappingFragment StoreEntitySet="SapUsersPerAprovalTypeLevel">
+                <ScalarProperty Name="NumberOrder" ColumnName="NumberOrder" />
+                <ScalarProperty Name="AprovalSubTypeId" ColumnName="AprovalSubTypeId" />
+                <ScalarProperty Name="sapUsername" ColumnName="sapUsername" />
+                <ScalarProperty Name="SapUsersPerAprovalTypeLevelId" ColumnName="SapUsersPerAprovalTypeLevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SapUsername" ColumnName="SapUsername" />
+                <ScalarProperty Name="Office365Mail" ColumnName="Office365Mail" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="SapUsername" ColumnName="SapUsername" />
+                <ScalarProperty Name="Office365Mail" ColumnName="Office365Mail" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioRoles">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.UsuarioRoles">
+              <MappingFragment StoreEntitySet="UsuarioRoles">
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreacionUsuarioId" ColumnName="CreacionUsuarioId" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="UsuarioRolId" ColumnName="UsuarioRolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vista">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.Vista">
+              <MappingFragment StoreEntitySet="Vista">
+                <ScalarProperty Name="GrupoVistaId" ColumnName="GrupoVistaId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="VistaId" ColumnName="VistaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VistaRol">
+            <EntityTypeMapping TypeName="DB_SAPAUTHORIZATIONModel.VistaRol">
+              <MappingFragment StoreEntitySet="VistaRol">
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="VistaId" ColumnName="VistaId" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="VistaRolId" ColumnName="VistaRolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

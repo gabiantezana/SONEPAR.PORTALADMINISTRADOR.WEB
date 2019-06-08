@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.GUID = ViewBag.GUID ?? Guid.NewGuid().ToString();
+    var buttonSaveId = ViewBag.GUID + "buttonSave";
+}
+@RenderSection("Styles", false)
+<div id="@ViewBag.GUID">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title"><i class="fa fa-@ViewBag.Icon contrast">&nbsp;</i> @ViewBag.Title </h4>
+    </div>
+
+    @*@if (TempData["FlashMessage"] != null)
+        {
+            @Html.AlertDark((MessageType)TempData["MessageType"], TempData["FlashMessage"].ToSafeString())
+        }*@
+    @if (ViewBag.Form != null)
+    {
+        Html.BeginForm();
+    }
+    <div class="modal-body" style="overflow:hidden;">
+        @RenderBody()
+    </div>
+    <div class="modal-footer">
+
+        @if (ViewBag.DeshabilitarCerrarFooter == null || !ViewBag.DeshabilitarCerrarFooter)
+        {
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+        }
+
+        @*@if (Model.ModosVistaDocumentoList.Contains(ModoVistaDocumentoApertura.Ver))
+            {
+
+            }*@
+
+        @if (Model.ModosVistaDocumentoList.Contains(ModoVistaDocumentoApertura.Crear)
+                     || Model.ModosVistaDocumentoList.Contains(ModoVistaDocumentoApertura.Modificar))
+        {
+            <button type="button" class="btn btn-primary @buttonSaveId" data-submittype="@SubmitType.Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp; Guardar</button>
+        }
+
+        @if (Model.ModosVistaDocumentoList.Contains(ModoVistaDocumentoApertura.ModificarYEnviar))
+        {
+            <button type="button" class="btn btn-primary @buttonSaveId" data-submittype="@SubmitType.Send"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp; Guardar y enviar</button>
+        }
+
+        @if (Model.ModosVistaDocumentoList.Contains(ModoVistaDocumentoApertura.ModificarYAprobar))
+        {
+            <button type="button" class="btn btn-success @buttonSaveId" data-submittype="@SubmitType.Approve"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp; Aprobar</button>
+            <button type="button" style="display: none" class="btn btn-success @buttonSaveId" id="@buttonSaveId-btnRefuse" data-submittype="@SubmitType.Refuse"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp; Aprobar</button>
+            <a class="btn btn-danger" data-mensaje="Ingrese motivo" id="btnConfirm" data-isExpenditure="true" data-formclass="@buttonSaveId" onclick="onClickConfirm(this)">Rechazar<i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+        }
+
+        @*@if (ViewBag.Form != null)
+            {
+                <button type="button" class="btn btn-primary" id="@buttonSaveId"><i class="fa fa-check"></i> Guardar</button>
+            }*@
+        @RenderSection("ModalFooter", false)
+    </div>
+    @if (ViewBag.Form != null)
+    {
+        Html.EndForm();
+    }
+</div>
+<!-- Stylesheets -->
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap-extend.min.css" rel="stylesheet" />
+<link href="~/Content/css/site.min.css" rel="stylesheet" />
+
+
+@if (ViewBag.Response == null)
+{
+    <script>
+
+
+
+        function onClickConfirm(button) {
+            debugger;
+            var $this = $(button);
+            var message = $this.data('mensaje');
+            alertify.prompt(message,
+                function (evt, value) {
+                    debugger;
+                    if (evt === "") {
+                        alert("Debe ingresar un mensaje");
+                    } else {
+                            debugger;
+                            var idForm = $this.data("formclass");
+                            $("#@ViewBag.GUID input[id=MotivoRechazo]").val(evt);
+                            $("#@buttonSaveId-btnRefuse").click();
+                    }
+                });
+            $('.cancel').addClass('btn');
+            $('.cancel').addClass('btn-default');
+
+            $('.ok').addClass('btn');
+            $('.ok').addClass('btn-primary');
+        };
+        var urlModalRedirect = '';
+        var urlValidation = '@ViewBag.UrlValidation';
+
+
+        $(function () {
+            debugger;
+            //Change rules
+            var $form = $('#@ViewBag.GUID form');
+
+            $('.@buttonSaveId').click(function (e) {
+                var $form = $('#@ViewBag.GUID form');
+                $("#@ViewBag.GUID input[id=SubmitType]").val($(this).data("submittype"));
+                debugger;
+                e.preventDefault();
+                //Validate form
+                $form.validate();
+
+                //Generate model
+                var _model = ConvertSerializedArrayToObject($form.serializeArray());
+
+                //Send by ajax
+                if ($form.valid()) {
+                    $.ajax({
+                        type: 'POST',
+                        url: urlValidation,
+                        data: { "model": _model },
+                        success: function(value) {
+                            debugger;
+                            $("#_PartialDetalleDocumentos").empty();
+                            $("#_PartialDetalleDocumentos").append(value);
+                            $("#_PartialDetalleDocumentos").html(value);
+                            $form.closest('.modal').modal('hide');
+                        },
+                        error: function(error) {
+                            ShowMessage("SUCCESS", error);
+                            debugger;
+                            return false;
+                        },
+                        finally: function(err) {
+                            debugger;
+                        }
+                    });
+                }
+            });
+        });
+
+        $(function () {
+            var today = new Date();
+
+            $('.input-group.date').datepicker({
+                orientation: "bottom auto",
+                language: 'es',
+                changeYear: true,
+                todayHighlight: true,
+            });
+
+            jQuery.validator.methods["date"] = function (value, element) { debugger; return true; }
+
+
+            $('*[data-plugin="select2"]').select2({
+                language: 'es',
+                placeholder: "[ -- Seleccione -- ]",
+                allowClear: true
+
+            });
+            setPlaceHolderToSelect2();
+        });
+        function setPlaceHolderToSelect2(ispartial) {
+            var select2InPage = $('*[data-plugin="select2"]');//.val('').trigger('change');
+            select2InPage.each(function (i, e) {
+                var $this = $(e);
+                if ($this.data('isedit') != null)
+                    if ($this.data('isedit') == false) {
+                        $this.val('').trigger('change');
+                    }
+            });
+        }
+
+        $(function () {
+            var _guid = '@Guid.NewGuid()';
+            debugger;
+            $('.spb').select2({
+                ajax: {
+                    url: '@Url.Action("GetJList", "SapBusinessPartner", new { Area = ConstantHelper.Area.SYNC})',
+                    dataType: 'json',
+                    type: 'POST',
+                    delay: 250,
+                    data: function (params) {
+                        var values = params.term;
+                        return {
+                            filter: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true,
+                },
+                tags: true,
+                createTag: function (newTag) {
+                    return {
+                        id: _guid + newTag.term,
+                        text: newTag.term + "(nuevo)",
+                        isNew: true,
+                    };
+                },
+                minimumInputLength: 3,
+                allowClear: true,
+                language: 'es',
+                placeholder: 'Buscar'
+            });
+        });
+    </script>
+}
+@RenderSection("Scripts", false);
+
+@Scripts.Render("~/bundles/jqueryval");
+@Scripts.Render("~/bundles/expressive");
